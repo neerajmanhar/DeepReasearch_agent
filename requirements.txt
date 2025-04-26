@@ -1,0 +1,8 @@
+langchain
+langgraph
+tavily-python
+python-dotenv
+chromadb
+pydantic
+typing-extensions
+streamlit
