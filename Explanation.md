@@ -21,7 +21,7 @@ The platform is supplemented by a Streamlit-based web app for interactive usage 
 #### Research Agent
 - **Prompt Engineering:**  
   The agent uses a carefully designed prompt to instruct the language model (gpt-4o-mini) to generate optimized search queries. The prompt emphasizes:
-  - **Temporal Relevance:** Incorporates the current date (e.g., “2025-04-24”) so that any reference to “latest” or “recent” information is evaluated in real-time.
+  - **Temporal Relevance:** Incorporates the current date (e.g., “2025-04-26”) so that any reference to “latest” or “recent” information is evaluated in real-time.
   - **Domain Sensitivity:** Adapts the query to the specific domain (news, tech, politics) by including contextually relevant keywords.
 - **Data Retrieval:**  
   Once the optimized query is generated, the agent uses the `TavilySearchTool` to execute web searches. Results are filtered and validated for reliable URLs, ensuring that only credible and recent data is processed.
