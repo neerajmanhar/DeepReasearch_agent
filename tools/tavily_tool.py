@@ -4,10 +4,12 @@ from langchain.prompts import PromptTemplate
 from tavily import TavilyClient
 from pydantic import BaseModel, Field
 import os
+
+
 from dotenv import load_dotenv
 
 load_dotenv()
-
+TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY")
 class TavilySearchInput(BaseModel):
     query: str = Field(..., description="The search query to execute")
     search_depth: str = Field(

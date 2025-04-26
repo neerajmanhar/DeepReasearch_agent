@@ -11,6 +11,9 @@ from datetime import datetime
 
 load_dotenv()
 
+TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+
 class AnswerAgent:
     def __init__(self):
         self.llm = ChatOpenAI(
@@ -42,6 +45,7 @@ class AnswerAgent:
             ("human", "{input}")
         ])
 
+        
         
         
     async def generate_answer(self, 

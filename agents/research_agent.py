@@ -7,6 +7,9 @@ from dotenv import load_dotenv
 from datetime import datetime
 load_dotenv()
 
+TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+
 class ResearchAgent:
     def __init__(self):
         self.llm = ChatOpenAI(

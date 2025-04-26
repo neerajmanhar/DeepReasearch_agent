@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class ResearchMemory:
     def __init__(self):
         self.persist_dir = os.getenv("CHROMA_PERSIST_DIR", "./data/chroma")
