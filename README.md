@@ -1,109 +1,70 @@
 # Deep Research Agentic AI System
 
-A powerful dual-agent system for automated deep research using LangChain, LangGraph, and Tavily API. This system combines intelligent web search capabilities with advanced natural language processing to produce comprehensive, well-structured research answers.
+A powerful dual-agent system for automated deep research using LangChain, LangGraph, and the Tavily API. This system autonomously gathers real-time information and synthesizes structured, source-cited answers based on user queries.
 
 ## Features
-
-- 🤖 Dual-Agent Architecture
-  - Research Agent: Performs intelligent web searches and information gathering
-  - Answer Agent: Synthesizes information and generates comprehensive responses
-- 🔄 Iterative Research Process
-  - Multiple search passes with context-aware query generation
-  - Automatic clarification requests when needed
-- 💾 Persistent Memory
-  - Stores research results for future reference
-  - Enables knowledge retention across sessions
-- 🎯 LangGraph Orchestration
-  - Conditional workflow based on research quality
-  - Flexible state management
-  - Easy to extend and modify
+- **Dual-Agent Architecture**  
+  - **Research Agent**: Crafts high-quality, time-aware search queries and collects reliable, current web data.
+  - **Answer Agent**: Synthesizes and structures the search results into a professional, fact-based answer.
+- **Iterative Research Process**  
+  - Implements conditional workflows (via LangGraph) to re-query or ask clarifying questions when results are insufficient.
+- **Persistent Memory**  
+  - Integrates with ChromaDB for storing and retrieving research data across sessions.
+- **Interactive Web App**  
+  - Deployed using Streamlit for an intuitive, real-time research interface.
 
 ## Prerequisites
-
-- Python 3.9+
-- Tavily API Key
-- OpenAI API Key
+- API Keys for Tavily and OpenAI
 
 ## Installation
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd deep-research-agent
-```
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/neerajmanhar/DeepReasearch_agent
+   cd deep-research-agent
+   ```
 
-2. Create and activate a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+2. **Create and Activate a Virtual Environment:**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Windows: venv\Scripts\activate
+   ```
 
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+   ```bash
+   # conda version
+   conda create --name venv
+   conda activate venv
 
-4. Set up environment variables:
-```bash
-cp .env.template .env
-```
-Edit `.env` and add your API keys:
-```
-TAVILY_API_KEY=your_tavily_api_key_here
-OPENAI_API_KEY=your_openai_api_key_here
-```
+3. **Install Dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Set Up Environment Variables:**
+   Create a `.env` file and add your API keys:
+   ```env
+   TAVILY_API_KEY=your_tavily_api_key_here
+   OPENAI_API_KEY=your_openai_api_key_here
+   CHROMA_PERSIST_DIR=./data/chroma
+   ```
 
 ## Usage
 
-### Basic Usage
+### Running the Research Workflow
 
-```python
-from main import run_research_workflow
-import asyncio
-
-async def main():
-    result = await run_research_workflow(
-        topic="What are the latest developments in quantum computing?",
-        context="Focus on practical applications and industry adoption",
-        max_iterations=3
-    )
-    print("Final Answer:", result["content"])
-    print("\nSources:")
-    for source in result["sources"]:
-        print(f"- {source['title']}: {source['url']}")
-
-asyncio.run(main())
+You can run the research workflow via the command line:
+```bash
+python main.py
 ```
 
-### Advanced Usage
+### Starting the Streamlit App
 
-You can customize the research process by modifying the agents' behavior:
-
-```python
-from agents.research_agent import ResearchAgent
-from agents.answer_agent import AnswerAgent
-
-# Initialize agents with custom settings
-research_agent = ResearchAgent()
-answer_agent = AnswerAgent()
-
-# Perform custom research
-results = await research_agent.research_topic(
-    topic="Your research topic",
-    context="Additional context",
-    max_iterations=5
-)
-
-# Generate custom answer
-answer = await answer_agent.generate_answer(
-    research_results=results,
-    query="Your query",
-    additional_context="More context"
-)
+To launch the interactive web interface:
+```bash
+streamlit run app.py
 ```
 
 ## Project Structure
-
 ```
 deep-research-agent/
 ├── agents/
@@ -114,16 +75,25 @@ deep-research-agent/
 ├── utils/
 │   └── memory.py
 ├── main.py
- app.py
+├── app.py
+├── README.md
 ├── requirements.txt
 ├── .env
-└── README.md
 ```
 
+## Implementation Overview
 
-## Acknowledgments
+### Research Agent
+- **Query Generation:** Uses GPT-4o-mini to generate precise, time-aware search queries.
+- **Data Collection:** Connects with the Tavily API to retrieve web search results, filtering and processing to ensure valid URLs and up-to-date data.
 
-- LangChain for the agent framework
-- LangGraph for workflow orchestration
-- Tavily for intelligent web search capabilities
-- OpenAI for language model capabilities 
+### Answer Agent
+- **Synthesis & Structure:** Analyzes the research data to produce a well-organized answer with an executive summary, key findings, detailed analysis, and comprehensive citations.
+- **Clarification:** In case of insufficient data, it suggests precise follow-up questions to refine the search.
+
+### Workflow Orchestration
+- **LangGraph Based Execution:** Manages the research and answer generation stages as nodes in a directed graph, allowing conditional routing and iterative clarification.
+
+### Memory Integration
+- **ChromaDB:** Stores and retrieves research results, supporting persistent knowledge across research sessions.
+
